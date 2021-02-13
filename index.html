@@ -31,6 +31,10 @@
       .bold {
 	font-weight: "bold";
       }
+	    
+      .button {
+	font-size: 24px;
+      }
     </style>
   </head>
   <body>
@@ -49,11 +53,11 @@
         📈 La <span class="bold">tasa de interés</span> que te ofrece el banco:
         <input type="number" id="rate"></input> % anual
       </div>
-        ⏰ El <span class="bold">plazo<span> que tendrás para pagar el crédito:
+        ⏰ El <span class="bold">plazo</span> que tendrás para pagar el crédito:
         <input type="number" id="period"></input> años
       <div class="result">
-        💸 El <span class="bold">monto mensual<span> que tendrás que pagar es:
-        <button id="monthly" onClick="simulate()">Simular!</button> UF
+        💸 El <span class="bold">monto mensual</span> que tendrás que pagar es:
+        <button class="button" id="monthly" onclick="simulate()">Simular!</button> UF
       </div>
     </div>
   </body>
