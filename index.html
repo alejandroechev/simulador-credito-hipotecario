@@ -14,6 +14,7 @@
         const monthlyRate = Math.pow(1 + adjustedRate, 1.0/12.0) - 1;
         const monthlyPayment = creditAmount * monthlyRate * (Math.pow(1 + monthlyRate, adjustedPeriod) / (Math.pow(1 + monthlyRate,adjustedPeriod) - 1));
 	document.getElementById("monthly").innerText = monthlyPayment.toFixed(2).toString();
+	document.getElementById("credit").value = creditAmount.toFixed(2).toString();
       }
     </script>
 
@@ -51,21 +52,26 @@
         <input class="input" type="number" id="total"></input> UF
       </div>
       <div>
-        🦶 El <span class="bold">porcentaje</span> que tú vas a financiar ("pie"):
+        🦶 El <span class="bold">porcentaje</span> que tú vas a financiar ("pie") es:
         <input class="input" type="number" id="pie"></input> %
       </div>
-        🏦 El <span class="bold">crédito</span> que necesitas del banco:
-        <span id="credit"></span> UF
       <div>
-        📈 La <span class="bold">tasa de interés</span> que te ofrece el banco:
+        📈 La <span class="bold">tasa de interés</span> que te ofrece el banco es:
         <input class="input" type="number" id="rate" step="0.01"></input> % anual
       </div>
-        ⏰ El <span class="bold">plazo</span> que tendrás para pagar el crédito:
+      <div>
+        ⏰ El <span class="bold">plazo</span> que tendrás para pagar el crédito es:
         <input class="input" type="number" id="period"></input> años
+      </div>
       <div class="result">
         💸 El <span class="bold">monto mensual</span> que tendrás que pagar es:
         <button class="button" id="monthly" onclick="simulate()">Simular!</button> UF
       </div>
+      <div class="result">
+        🏦 Y el <span class="bold">crédito</span> que necesitas del banco es:
+        <span id="credit"></span> UF
+      </div>
+      
     </div>
   </body>
 </html>
