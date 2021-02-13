@@ -6,12 +6,14 @@
 
     <script>
       function simulate() {
+	console.log("Starting simulation");
         const adjustedRate = document.getElementById("rate").value / 100.0;
         const adjustedPeriod = document.getElementById("period").value * 12;
         const creditAmount = document.getElementById("credit").value;
         const monthlyRate = Math.pow(1 + adjustedRate, 1.0/12.0) - 1;
         const monthlyPayment = creditAmount * monthlyRate * (Math.pow(1 + monthlyRate, adjustedPeriod) / (Math.pow(1 + monthlyRate,adjustedPeriod) - 1));
-	      document.getElementById("monthly").value = monthlyPayment.toString();
+	console.log(monthlyPayment);
+	document.getElementById("monthly").innerText = monthlyPayment.toString();
       }
     </script>
 
@@ -52,7 +54,7 @@
         <input type="number" id="credit"></input> UF
       <div>
         📈 La <span class="bold">tasa de interés</span> que te ofrece el banco:
-        <input type="number" id="rate"></input> % anual
+        <input type="number" id="rate" step="0.01"></input> % anual
       </div>
         ⏰ El <span class="bold">plazo</span> que tendrás para pagar el crédito:
         <input type="number" id="period"></input> años
