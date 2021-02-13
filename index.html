@@ -8,10 +8,21 @@
     </script>
 
     <style>
+      .container {
+        font-size: 24px;
+        text-align: center;
+        line-height: 2em;
+        margin-top: 10%;
+      }
+      
+      .result {
+        margin-top: 50px;
+        font-size: 30px;
+      }
     </style>
   </head>
   <body>
-    <div id="container">
+    <div class="container">
       <div>
         🏠 El monto total de la casa o departamento es:
         <input type="number" id="total"></input> UF
@@ -28,9 +39,9 @@
       </div>
         ⏰ El plazo que tendrás para pagar el crédito:
         <input type="number" id="period"></input> años
-      <div>
+      <div class="result">
         💸 El monto mensual que tenrás que pagar es:
-        <input type="number" id="period"></input> UF
+        <input type="number" id="monthly"></input> UF
       </div>
     </div>
   </body>
