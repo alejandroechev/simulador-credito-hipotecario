@@ -13,7 +13,7 @@
         const monthlyRate = Math.pow(1 + adjustedRate, 1.0/12.0) - 1;
         const monthlyPayment = creditAmount * monthlyRate * (Math.pow(1 + monthlyRate, adjustedPeriod) / (Math.pow(1 + monthlyRate,adjustedPeriod) - 1));
 	console.log(monthlyPayment);
-	document.getElementById("monthly").innerText = monthlyPayment.toString();
+	document.getElementById("monthly").innerText = monthlyPayment.toFixed(2).toString();
       }
     </script>
 
