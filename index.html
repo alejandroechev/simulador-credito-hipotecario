@@ -6,13 +6,13 @@
 
     <script>
       function simulate() {
-	console.log("Starting simulation");
+	const total = document.getElementById("total").value;
+	const pie = document.getElementById("pie").value;
+        const creditAmount = total * (100.0 - pie) / 100.0;
         const adjustedRate = document.getElementById("rate").value / 100.0;
         const adjustedPeriod = document.getElementById("period").value * 12;
-        const creditAmount = document.getElementById("credit").value;
         const monthlyRate = Math.pow(1 + adjustedRate, 1.0/12.0) - 1;
         const monthlyPayment = creditAmount * monthlyRate * (Math.pow(1 + monthlyRate, adjustedPeriod) / (Math.pow(1 + monthlyRate,adjustedPeriod) - 1));
-	console.log(monthlyPayment);
 	document.getElementById("monthly").innerText = monthlyPayment.toFixed(2).toString();
       }
     </script>
@@ -55,7 +55,7 @@
         <input class="input" type="number" id="pie"></input> %
       </div>
         🏦 El <span class="bold">crédito</span> que necesitas del banco:
-        <input class="input" type="number" id="credit"></input> UF
+        <span id="credit"></span> UF
       <div>
         📈 La <span class="bold">tasa de interés</span> que te ofrece el banco:
         <input class="input" type="number" id="rate" step="0.01"></input> % anual
