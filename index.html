@@ -14,7 +14,7 @@
         const monthlyRate = Math.pow(1 + adjustedRate, 1.0/12.0) - 1;
         const monthlyPayment = creditAmount * monthlyRate * (Math.pow(1 + monthlyRate, adjustedPeriod) / (Math.pow(1 + monthlyRate,adjustedPeriod) - 1));
 	document.getElementById("monthly").innerText = monthlyPayment.toFixed(2).toString();
-	document.getElementById("credit").value = creditAmount.toFixed(2).toString();
+	document.getElementById("credit").innerText = creditAmount.toFixed(2).toString();
       }
     </script>
 
@@ -69,7 +69,7 @@
       </div>
       <div class="result">
         🏦 Y el <span class="bold">crédito</span> que necesitas del banco es:
-        <span id="credit"></span> UF
+        <span id="credit">?</span> UF
       </div>
       
     </div>
