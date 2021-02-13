@@ -5,16 +5,68 @@
     <title>Simulador Crédito Hipotecario</title>
 
     <script>
-      function simulate() {
-	const total = document.getElementById("total").value;
-	const pie = document.getElementById("pie").value;
-        const creditAmount = total * (100.0 - pie) / 100.0;
-        const adjustedRate = document.getElementById("rate").value / 100.0;
-        const adjustedPeriod = document.getElementById("period").value * 12;
+      document.addEventListener("DOMContentLoaded", function(){
+        document.getElementById("total").addEventListener('input', totalChanged);
+        document.getElementById("financed").addEventListener('input', financedChanged);
+        document.getElementById("credit").addEventListener('input', creditChanged);
+        document.getElementById("rate").addEventListener('input', paramsChanged);
+        document.getElementById("period").addEventListener('input', paramsChanged);
+        document.getElementById("monthly").addEventListener('input', paramsChanged);
+      });
+
+      function totalChanged(e) {
+        const total = document.getElementById("total").value;
+        let financed = document.getElementById("financed").value;
+        let credit = document.getElementById("credit").value;
+        if (financed) {
+          credit = total * (100.0 - financed) / 100.0;
+          document.getElementById("credit").value = credit;
+        } else if (credit) {
+          financed = 100.0 * (total - credit) / total;
+          document.getElementById("financed").value = financed;
+        }
+      }
+
+      function financedChanged(e) {
+        const financed = document.getElementById("financed").value;
+        let total = document.getElementById("total").value;
+        let credit = document.getElementById("credit").value;
+        if (total) {
+          credit = total * (100.0 - financed) / 100.0;
+          document.getElementById("credit").value = credit;
+        } else if (credit) {
+          total = 100.0 * credit / (100.0 - financed);
+          document.getElementById("total").value = total;
+        }
+      }
+
+      function creditChanged(e) {
+        const credit = document.getElementById("credit").value;
+        let financed = document.getElementById("financed").value;
+        let total = document.getElementById("total").value;
+        if (total) {
+          financed = 100.0 * (total - credit) / total;
+          document.getElementById("financed").value = financed;
+        } else if (financed) {
+          total = 100.0 * credit / (100.0 - financed);
+          document.getElementById("total").value = total;
+        }
+      }
+
+      function paramsChanged(e) {
+        const credit = document.getElementById("credit").value;
+        const period = document.getElementById("period").value;
+        const rate = document.getElementById("rate").value;
+
+        if (!credit || !rate || !period) return;
+        document.getElementById("monthly").value = monthly(credit, period, rate).toFixed(2);
+      }
+
+      function monthly(credit, period, rate) {
+	      const adjustedRate = rate / 100.0;
+        const adjustedPeriod = period * 12;
         const monthlyRate = Math.pow(1 + adjustedRate, 1.0/12.0) - 1;
-        const monthlyPayment = creditAmount * monthlyRate * (Math.pow(1 + monthlyRate, adjustedPeriod) / (Math.pow(1 + monthlyRate,adjustedPeriod) - 1));
-	document.getElementById("monthly").innerText = monthlyPayment.toFixed(2).toString();
-	document.getElementById("credit").innerText = creditAmount.toFixed(2).toString();
+        return credit * monthlyRate * (Math.pow(1 + monthlyRate, adjustedPeriod) / (Math.pow(1 + monthlyRate,adjustedPeriod) - 1));
       }
     </script>
 
@@ -25,24 +77,14 @@
         line-height: 2em;
         margin-top: 10%;
       }
-      
-      .result {
-        margin-top: 50px;
-        font-size: 30px;
-      }
-	    
+
       .bold {
-	font-weight: bold;
+	      font-weight: bold;
       }
-	    
-      .button {
-	font-size: 24px;
-	font-weight: bold;
-      }
-	    
+
       .input {
-	font-size: 24px;
-	width: 120px;
+	      font-size: 24px;
+	      width: 120px;
       }
     </style>
   </head>
@@ -54,7 +96,11 @@
       </div>
       <div>
         🦶 El <span class="bold">porcentaje</span> que tú vas a financiar ("pie") es:
-        <input class="input" type="number" id="pie"></input> %
+        <input class="input" type="number" id="financed"></input> %
+      </div>
+      <div >
+        🏦 El <span class="bold">crédito</span> que necesitas del banco es:
+        <input class="input" type="number" id="credit"></input> UF
       </div>
       <div>
         📈 La <span class="bold">tasa de interés</span> que te ofrece el banco es:
@@ -64,15 +110,10 @@
         ⏰ El <span class="bold">plazo</span> que tendrás para pagar el crédito es:
         <input class="input" type="number" id="period"></input> años
       </div>
-      <div class="result">
+      <div>
         💸 El <span class="bold">monto mensual</span> que tendrás que pagar es:
-        <button class="button" id="monthly" onclick="simulate()">Simular!</button> UF
+        <input class="input" type="number" id="monthly" step="0.01"></input> UF
       </div>
-      <div class="result">
-        🏦 Y el <span class="bold">crédito</span> que necesitas del banco es:
-        <span id="credit" class="bold">?</span> UF
-      </div>
-      
     </div>
   </body>
 </html>
