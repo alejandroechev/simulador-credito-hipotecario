@@ -16,6 +16,8 @@
 
       function totalChanged(e) {
         const total = document.getElementById("total").value;
+        const ufToCLP = document.getElementById("uf").value;
+        document.getElementById("totalCLP").value = total * ufToCLP;
         let financed = document.getElementById("financed").value;
         let credit = document.getElementById("credit").value;
         if (financed) {
@@ -59,7 +61,11 @@
         const rate = document.getElementById("rate").value;
 
         if (!credit || !rate || !period) return;
-        document.getElementById("monthly").value = monthly(credit, period, rate).toFixed(2);
+
+        const montlhy = monthly(credit, period, rate).toFixed(2);
+        const ufToCLP = document.getElementById("uf").value;
+        document.getElementById("monthly").value = montlhy;
+        document.getElementById("monthlyCLP").value = (montlhy * ufToCLP).toFixed(2);
       }
 
       function monthly(credit, period, rate) {
@@ -84,15 +90,40 @@
 
       .input {
 	      font-size: 24px;
-	      width: 120px;
+	      width: 150px;
+      }
+
+      .inputs {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .element {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
       }
     </style>
   </head>
   <body>
     <div class="container">
       <div>
-        🏠 El <span class="bold">monto total</span> de la casa o departamento es:
-        <input class="input" type="number" id="total"></input> UF
+        💱 Considerando un <span class="bold">valor de la UF</span> de:
+        <input class="input" type="number" id="uf" value=29192></input> $
+      </div>
+      <div class="element">
+        <div>
+          🏠 El <span class="bold">monto total</span> de la casa o departamento es:
+        </div>
+        <div class="inputs">
+          <div>
+            <input class="input" type="number" id="total"></input> UF
+          </div>
+          <div>
+            <input class="input" type="number" id="totalCLP"></input> $$
+          </div>
+        </div>
       </div>
       <div>
         🦶 El <span class="bold">porcentaje</span> que tú vas a financiar ("pie") es:
@@ -110,9 +141,18 @@
         ⏰ El <span class="bold">plazo</span> que tendrás para pagar el crédito es:
         <input class="input" type="number" id="period"></input> años
       </div>
-      <div>
-        💸 El <span class="bold">monto mensual</span> que tendrás que pagar es:
-        <input class="input" type="number" id="monthly" step="0.01"></input> UF
+      <div class="element">
+        <div>
+          💸 El <span class="bold">monto mensual</span> que tendrás que pagar es:
+        </div>
+        <div class="inputs">
+          <div>
+            <input class="input" type="number" id="monthly" step="0.01"></input> UF
+          </div>
+          <div>
+            <input class="input" type="number" id="monthlyCLP" step="0.01"></input> $$
+          </div>
+        </div>
       </div>
     </div>
   </body>
